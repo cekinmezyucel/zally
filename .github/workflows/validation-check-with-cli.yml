@@ -10,6 +10,7 @@ on:
       file:
         description: 'The path to the api specification file to be passed as input.'
         required: true
+        type: string
 
 jobs:
   build-zally:
