@@ -11,8 +11,12 @@ jobs:
   build-zally:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Caller's Repository
+      - name: Checkout Main Repository
         uses: actions/checkout@v3
+        with:
+          path: main
+      - name: Try to cat
+        run: cat /main/${{ inputs.file-path }}
       - name: Try to echo pat
         run: echo ${{ secrets.GH_PAT }}
       - name: Checkout Zally
