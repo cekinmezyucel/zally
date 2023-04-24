@@ -33,9 +33,8 @@ jobs:
         run: |
           cd cli/zally
           go build
-          pwd
+          export PATH="/home/runner/work/zally/zally/cli/zally:$PATH"
           zally --help
       - name: Run zally cli
-        run: |
-          pwd
-          zally --help
+        run: zally --format pretty/ 
+             lint /home/runner/work/zally/zally/server/zally-test/src/main/resources/fixtures/api_spa.yaml
