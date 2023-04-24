@@ -21,3 +21,17 @@ jobs:
         with:
           go-version: '1.16'
       - run: go version
+      - name: Run Zally server
+        run: |
+          cd server/
+          chmod +x gradlew
+          ./gradlew --console=plain bootRun > /dev/null &
+          echo $! > /tmp/zally_server.pid
+          cd ..
+          while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
+      - name: Build CLI
+        run: |
+          cd cli/zally
+          go build
+      - name: Validate an API spec file
+        run: pwd
