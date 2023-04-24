@@ -36,7 +36,11 @@ jobs:
         run: |
           pwd
           ls
-          cd zally/zally/server/
+          cd zally
+          ls
+          cd zally
+          ls
+          cd server
           chmod +x gradlew
           ./gradlew --console=plain bootRun > /dev/null &
           echo $! > /tmp/zally_server.pid
