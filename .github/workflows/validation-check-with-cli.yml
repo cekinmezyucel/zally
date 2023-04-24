@@ -33,5 +33,9 @@ jobs:
         run: |
           cd cli/zally
           go build
-      - name: Validate an API spec file
-        run: pwd
+          pwd
+          zally --help
+      - name: Run zally cli
+        run: |
+          pwd
+          zally --help
