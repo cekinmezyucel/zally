@@ -19,7 +19,7 @@ jobs:
         run: |
           pwd
           ls
-          cat ${{ inputs.file-path }}
+          cat main/${{ inputs.file-path }}
       - name: Try to echo pat
         run: echo ${{ secrets.GH_PAT }}
       - name: Checkout Zally
