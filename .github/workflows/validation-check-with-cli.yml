@@ -15,8 +15,13 @@ jobs:
   build-zally:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout base repo
+        uses: actions/checkout@v3
       - name: Try to cat
-        run: cat ${{ inputs.file-path }}
+        run: |
+          pwd
+          ls
+          cat ${{ inputs.file-path }}
       - name: Checkout Zally
         uses: actions/checkout@v3
         with:
