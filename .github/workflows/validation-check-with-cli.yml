@@ -19,7 +19,7 @@ jobs:
           repository: cekinmezyucel/zally
           token: ${{ github.token }}
           path: zally
-      - name: Set up JDK
+      - name: Setup JDK
         uses: actions/setup-java@v2
         with:
           java-version: '17'
@@ -28,9 +28,7 @@ jobs:
         uses: actions/setup-go@v2
         with:
           go-version: '1.16'
-      - name: Add Zally CLI Path
-        run: echo "zally/cli/zally" >> $GITHUB_PATH
-      - name: Run Zally server
+      - name: Run Zally Server
         run: |
           cd zally/server
           chmod +x gradlew
@@ -42,5 +40,7 @@ jobs:
         run: |
           cd zally/cli/zally
           go build
-      - name: Lint file
+      - name: Add Zally CLI To Path
+        run: echo "zally/cli/zally" >> $GITHUB_PATH
+      - name: Lint File
         run: zally lint ${{ inputs.file-path }}
