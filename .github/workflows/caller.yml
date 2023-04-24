@@ -14,6 +14,7 @@ jobs:
         run: cat server/zally-test/src/main/resources/fixtures/api_spa.yaml
       - name: Upload artifact
         uses: actions/upload-artifact@v2
+        id: upload
         with:
           name: my-file
           path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
