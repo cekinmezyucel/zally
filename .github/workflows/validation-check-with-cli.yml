@@ -15,7 +15,14 @@ jobs:
   build-zally:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Try to cat
+        run: cat ${{ inputs.file-path }}
+      - name: Checkout Zally
+        uses: actions/checkout@v3
+        with:
+          repository: cekinmezyucel/zally
+          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          path: zally
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -29,7 +36,9 @@ jobs:
         run: echo "/home/runner/work/zally/zally/cli/zally" >> $GITHUB_PATH
       - name: Run Zally server
         run: |
-          cd server/
+          cd /zally/server/
+          ls
+          pwd
           chmod +x gradlew
           ./gradlew --console=plain bootRun > /dev/null &
           echo $! > /tmp/zally_server.pid
@@ -37,9 +46,7 @@ jobs:
           while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
       - name: Build CLI
         run: |
-          cd cli/zally
+          cd zally/cli/zally
           go build
-      - name: Try to cat
-        run: cat ${{ inputs.config-path }}
       - name: Lint file
-        run: zally lint ${{ inputs.config-path }}
+        run: zally lint ${{ inputs.file-path }}
