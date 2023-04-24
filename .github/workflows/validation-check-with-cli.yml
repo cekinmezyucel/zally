@@ -36,7 +36,7 @@ jobs:
           echo $! > /tmp/zally_server.pid
           cd ..
           while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
-      - name: Build CLI
+      - name: Build Zally CLI
         run: |
           cd zally/cli/zally
           go build
