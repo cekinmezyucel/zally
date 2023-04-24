@@ -18,4 +18,4 @@ jobs:
   call-linter:
     uses: cekinmezyucel/zally/.github/workflows/validation-check-with-cli.yml@main
     with:
-      artifact-id: ${{ steps.upload.outputs.artifact_id }}
+      artifact-id: ${{ upload-artifact.steps.upload.outputs.artifact_id }}
