@@ -17,5 +17,5 @@ jobs:
         with:
           name: my-file
           path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
-      - name:
+      - name: Show upload artifact id
         run: echo ${{ steps.upload.outputs.artifact_id }}
