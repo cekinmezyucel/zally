@@ -3,30 +3,23 @@ name: Zally api specification linter
 on:
   workflow_call:
     inputs:
-      artifact-id:
-        description: 'The artifact-id to the uploaded api specification file to be passed as input.'
-        required: false
-        type: string
       file-path:
-        required: false
+        required: true
         type: string
 
 jobs:
   build-zally:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout base repo
+      - name: Checkout Caller's Repository
         uses: actions/checkout@v3
-      - name: Try to cat
-        run: |
-          pwd
-          ls
-          cat ${{ inputs.file-path }}
+      - name: Try to echo pat
+        run: echo ${{ secrets.GH_PAT }}
       - name: Checkout Zally
         uses: actions/checkout@v3
         with:
           repository: cekinmezyucel/zally
-          token: ${{ secrets.GH_PAT }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ secrets.GH_PAT }}
           path: zally
       - name: Set up JDK
         uses: actions/setup-java@v2
