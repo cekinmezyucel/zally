@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout Main Repository
         uses: actions/checkout@v3
-        with:
-          path: main
       - name: Checkout Zally
         uses: actions/checkout@v3
         with:
@@ -31,16 +29,10 @@ jobs:
         with:
           go-version: '1.16'
       - name: Add Zally CLI Path
-        run: echo "zally/zally/cli/zally" >> $GITHUB_PATH
+        run: echo "zally/cli/zally" >> $GITHUB_PATH
       - name: Run Zally server
         run: |
-          pwd
-          ls
-          cd zally
-          ls
-          cd zally
-          ls
-          cd server
+          cd zally/server
           chmod +x gradlew
           ./gradlew --console=plain bootRun > /dev/null &
           echo $! > /tmp/zally_server.pid
@@ -48,7 +40,7 @@ jobs:
           while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
       - name: Build CLI
         run: |
-          cd zally/zally/cli/zally
+          cd zally/cli/zally
           go build
       - name: Lint file
         run: zally lint ${{ inputs.file-path }}
