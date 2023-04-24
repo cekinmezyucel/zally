@@ -16,7 +16,10 @@ jobs:
         with:
           path: main
       - name: Try to cat
-        run: cat /main/${{ inputs.file-path }}
+        run: |
+          pwd
+          ls
+          cat ${{ inputs.file-path }}
       - name: Try to echo pat
         run: echo ${{ secrets.GH_PAT }}
       - name: Checkout Zally
