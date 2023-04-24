@@ -13,7 +13,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Pass File Input
-        uses: validation-check-with-cli
+        uses: cekinmezyucel/zally/actions/workflows/validation-check-with-cli.yml@main
         with:
           file: '/home/runner/work/zally/zally/server/zally-test/src/main/resources/fixtures/api_spa.yaml'
           source_branch: 'main'
