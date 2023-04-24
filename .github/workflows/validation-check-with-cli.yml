@@ -1,9 +1,5 @@
 name: Zally api specification linter
 
-description: |
-  This action accepts an api spe specification as an input from another Github Action running
-  on a different repository. And lint it with Zally.
-
 on:
   workflow_call:
     inputs:
