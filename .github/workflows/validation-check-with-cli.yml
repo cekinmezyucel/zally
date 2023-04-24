@@ -29,12 +29,10 @@ jobs:
           echo $! > /tmp/zally_server.pid
           cd ..
           while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
-      - name: Build CLI
+      - name: Build CLI & Lint file
         run: |
           cd cli/zally
           go build
           export PATH="/home/runner/work/zally/zally/cli/zally:$PATH"
-          zally --help
-      - name: Run zally cli
-        run: zally --format pretty/ 
+          zally --format pretty/ 
              lint /home/runner/work/zally/zally/server/zally-test/src/main/resources/fixtures/api_spa.yaml
