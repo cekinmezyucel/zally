@@ -10,12 +10,12 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+      - name: Show api file
+        run: cat server/zally-test/src/main/resources/fixtures/api_spa.yaml
       - name: Upload artifact
         uses: actions/upload-artifact@v2
         with:
           name: my-file
           path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
-  call-linter:
-    uses: cekinmezyucel/zally/.github/workflows/validation-check-with-cli.yml@main
-    with:
-      artifact-id: ${{ upload-artifact.steps.upload.outputs.artifact_id }}
+      - name:
+        run: echo ${{ steps.upload.outputs.artifact_id }}
