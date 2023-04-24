@@ -15,18 +15,11 @@ jobs:
         uses: actions/checkout@v3
         with:
           path: main
-      - name: Try to cat
-        run: |
-          pwd
-          ls
-          cat main/${{ inputs.file-path }}
-      - name: Try to echo pat
-        run: echo ${{ github.token }}
       - name: Checkout Zally
         uses: actions/checkout@v3
         with:
           repository: cekinmezyucel/zally
-          token: ${{ github.token }} # `GH_PAT` is a secret that contains your PAT
+          token: ${{ github.token }}
           path: zally
       - name: Set up JDK
         uses: actions/setup-java@v2
@@ -38,12 +31,10 @@ jobs:
         with:
           go-version: '1.16'
       - name: Add Zally CLI Path
-        run: echo "/home/runner/work/zally/zally/cli/zally" >> $GITHUB_PATH
+        run: echo "zally/zally/cli/zally" >> $GITHUB_PATH
       - name: Run Zally server
         run: |
-          cd /zally/server/
-          ls
-          pwd
+          cd zally/zally/server/
           chmod +x gradlew
           ./gradlew --console=plain bootRun > /dev/null &
           echo $! > /tmp/zally_server.pid
@@ -51,7 +42,7 @@ jobs:
           while ! echo "GET / HTTP/1.0\n" | nc localhost 8000; do sleep 1; done
       - name: Build CLI
         run: |
-          cd zally/cli/zally
+          cd zally/zally/cli/zally
           go build
       - name: Lint file
         run: zally lint ${{ inputs.file-path }}
