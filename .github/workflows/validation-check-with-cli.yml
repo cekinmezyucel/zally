@@ -1,4 +1,4 @@
-name: Zally api specification linter
+name: Zally API Specification File Linter
 
 on:
   workflow_call:
