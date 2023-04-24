@@ -5,7 +5,10 @@ on:
     inputs:
       artifact-id:
         description: 'The artifact-id to the uploaded api specification file to be passed as input.'
-        required: true
+        required: false
+        type: string
+      file-path:
+        required: false
         type: string
 
 jobs:
@@ -24,14 +27,6 @@ jobs:
           go-version: '1.16'
       - name: Add Zally CLI Path
         run: echo "/home/runner/work/zally/zally/cli/zally" >> $GITHUB_PATH
-      - name: Download artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: my-file
-          path: /home/api.yaml
-          # Use the artifact ID passed as input
-          # to download the correct artifact
-          artifact_id: ${{ inputs.artifact-id }}
       - name: Run Zally server
         run: |
           cd server/
@@ -44,5 +39,7 @@ jobs:
         run: |
           cd cli/zally
           go build
+      - name: Try to cat
+        run: cat ${{ inputs.config-path }}
       - name: Lint file
-        run: zally lint /home/api.yaml
+        run: zally lint ${{ inputs.config-path }}

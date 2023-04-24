@@ -5,18 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  upload-artifact:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Show api file
-        run: cat server/zally-test/src/main/resources/fixtures/api_spa.yaml
-      - name: Upload artifact
-        uses: actions/upload-artifact@v2
-        id: upload
-        with:
-          name: my-file
-          path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
-      - name: Show upload artifact id
-        run: echo ${{ steps.upload.outputs.artifact_id }}
+  call-linter:
+    uses: cekinmezyucel/zally/.github/workflows/validation-check-with-cli.yml@main
+    with:
+      file-path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
+    secrets: inherit
