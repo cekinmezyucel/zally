@@ -1,0 +1,21 @@
+name: Lint file when push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: my-file
+          path: server/zally-test/src/main/resources/fixtures/api_spa.yaml
+      - name: Lint api-spec file
+        uses: cekinmezyucel/zally/.github/workflows/validation-check-with-cli.yml@main
+        with:
+          artifact-id: ${{ steps.upload.outputs.artifact_id }}
