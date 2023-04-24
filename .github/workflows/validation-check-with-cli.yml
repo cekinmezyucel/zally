@@ -34,6 +34,8 @@ jobs:
         run: echo "zally/zally/cli/zally" >> $GITHUB_PATH
       - name: Run Zally server
         run: |
+          pwd
+          ls
           cd zally/zally/server/
           chmod +x gradlew
           ./gradlew --console=plain bootRun > /dev/null &
