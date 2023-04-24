@@ -1,10 +1,13 @@
-name: Zally Validation Check With CLI
+name: Zally api specification linter
 
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
+description: |
+  This action accepts an api spe specification as an input from another Github Action running
+  on a different repository. And lint it with Zally.
+
+inputs:
+  file:
+    description: 'The path to the api specification file to be passed as input.'
+    required: true
 
 jobs:
   build-zally:
@@ -35,4 +38,4 @@ jobs:
           cd cli/zally
           go build
       - name: Lint file
-        run: zally lint /home/runner/work/zally/zally/server/zally-test/src/main/resources/fixtures/api_spa.yaml
+        run: zally lint ${{ github.event.inputs.file }}

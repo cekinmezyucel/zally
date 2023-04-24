@@ -1,0 +1,21 @@
+name: Lint file when push
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Run Source Action
+        uses: actions/checkout@v2
+
+      - name: Pass File Input
+        uses: validation-check-with-cli
+        with:
+          file: '/home/runner/work/zally/zally/server/zally-test/src/main/resources/fixtures/api_spa.yaml'
+          source_branch: 'main'
+        env:
+          SOURCE_REPO_ACCESS_TOKEN: ${{ secrets.SOURCE_REPO_ACCESS_TOKEN }}
